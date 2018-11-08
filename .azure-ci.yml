@@ -1,0 +1,27 @@
+# Disable CI triggers, we don't want a build per merge to Master
+trigger: none
+
+jobs:
+  # Windows_NT leg
+  - template: /eng/pipelines/standard-base.yml
+    parameters:
+      name: Windows_NT
+      pool:
+        name: Hosted VS2017
+      targetOS: Windows_NT
+
+  # Linux leg
+  - template: /eng/pipelines/standard-base.yml
+    parameters:
+      name: Linux
+      pool:
+        name: Hosted Ubuntu 1604
+      targetOS: Linux
+
+  # OSX leg
+  - template: /eng/pipelines/standard-base.yml
+    parameters:
+      name: OSX
+      pool:
+        name: Hosted macOS
+      targetOS: OSX
