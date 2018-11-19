@@ -12,8 +12,10 @@ jobs:
         _buildScript: build.cmd -c -ci
       ${{ if ne(parameters.targetOS, 'Windows_NT') }}:
         _buildScript: ./build.sh --ci
-      ${{ if ne(variables['System.TeamProject'], 'public') }};
-        _extraParams: /p:dummy=foo
+      ${{ if ne(variables['System.TeamProject'], 'public') }}:
+        _privateParams: /p:dummy=private
+      ${{ if eq(variables['System.TeamProject'], 'public') }}:
+        _publicParams: /p:dummy=public
 
     pool:
       ${{ insert }}: ${{ parameters.pool }}
@@ -22,5 +24,5 @@ jobs:
       ${{ insert }}: ${{ parameters.strategy }}
 
     steps:
-      - script: $(_buildScript) $(_extraParams)
+      - script: $(_buildScript) $(_privateParams) $(_publicParams)
         displayName: Build
