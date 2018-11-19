@@ -28,3 +28,6 @@ jobs:
         displayName: Print Env
       - script: $(_buildScript)
         displayName: Build
+        continueOnError: true
+      - script: $(__env)
+        displayName: Print Env
