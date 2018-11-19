@@ -38,6 +38,7 @@ function ReadGlobalVersion {
 }
 
 toolset_version=`ReadGlobalVersion "Microsoft.DotNet.Arcade.Sdk"`
+echo "Sdk Version is $toolset_version"
 
 function InitializeDotNetCli {
   # Disable first run since we want to control all package sources
