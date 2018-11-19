@@ -3,25 +3,27 @@ trigger: none
 
 jobs:
   # Windows_NT leg
-  - template: /eng/pipelines/standard-base.yml
+  - template: /eng/pipelines/standard-ci.yml
     parameters:
       name: Windows_NT
       pool:
         name: Hosted VS2017
       targetOS: Windows_NT
 
-  # Linux leg
-  - template: /eng/pipelines/standard-base.yml
-    parameters:
-      name: Linux
-      pool:
-        name: Hosted Ubuntu 1604
-      targetOS: Linux
+  # Linux leg (only runs in CI)
+  - ${{ if and(ne(variables['System.TeamProject'], 'public'), notin(variables['Build.Reason'], 'PullRequest')) }}:
+    - template: /eng/pipelines/standard-ci.yml
+      parameters:
+        name: Linux
+        pool:
+          name: Hosted Ubuntu 1604
+        targetOS: Linux
 
-  # OSX leg
-  - template: /eng/pipelines/standard-base.yml
-    parameters:
-      name: OSX
-      pool:
-        name: Hosted macOS
-      targetOS: OSX
+  # OSX leg (only runs in CI)
+  - ${{ if and(ne(variables['System.TeamProject'], 'public'), notin(variables['Build.Reason'], 'PullRequest')) }}:
+    - template: /eng/pipelines/standard-ci.yml
+      parameters:
+        name: OSX
+        pool:
+          name: Hosted macOS
+        targetOS: OSX
