@@ -37,6 +37,8 @@
       <InitToolsCmdLine>$(BuildToolsPackageDir)init-tools.$(CmdExt) $(RepoRoot) $(DotNetCmd) $(ToolsDir) $(PackagesDir)</InitToolsCmdLine>
     </PropertyGroup>
 
+    <Message Text="DOTNET_INSTALL_DIR = $(DOTNET_INSTALL_DIR)" Importance="high" />  
+    
     <Exec
         Condition="!Exists('$(BuildToolsSemaphore)')"
         Command="$(InitToolsCmdLine)" />
