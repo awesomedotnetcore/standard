@@ -11,7 +11,7 @@ jobs:
       targetOS: Windows_NT
 
   # Linux leg (only runs in CI)
-  - ${{ if and(ne(variables['System.TeamProject'], 'public'), notin(variables['Build.Reason'], 'PullRequest')) }}:
+  - ${{ if ne(variables['System.TeamProject'], 'private') }}:
     - template: /eng/pipelines/standard-ci.yml
       parameters:
         name: Linux
@@ -20,7 +20,7 @@ jobs:
         targetOS: Linux
 
   # OSX leg (only runs in CI)
-  - ${{ if and(ne(variables['System.TeamProject'], 'public'), notin(variables['Build.Reason'], 'PullRequest')) }}:
+  - ${{ if ne(variables['System.TeamProject'], 'private') }}:
     - template: /eng/pipelines/standard-ci.yml
       parameters:
         name: OSX
