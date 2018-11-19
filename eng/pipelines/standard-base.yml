@@ -11,7 +11,7 @@ jobs:
       ${{ if eq(parameters.targetOS, 'Windows_NT') }}:
         _buildScript: build.cmd -c -ci
       ${{ if ne(parameters.targetOS, 'Windows_NT') }}:
-        _buildScript: ./build.sh -c --ci
+        _buildScript: ./build.sh --ci
       ${{ if eq(parameters.targetOS, 'Windows_NT') }}:
         __env: SET
       ${{ if ne(parameters.targetOS, 'Windows_NT') }}:
