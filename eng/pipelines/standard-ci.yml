@@ -12,6 +12,8 @@ jobs:
         _buildScript: build.cmd -c -ci
       ${{ if ne(parameters.targetOS, 'Windows_NT') }}:
         _buildScript: ./build.sh --ci
+      ${{ if ne(variables['System.TeamProject'], 'public') }};
+        _extraParams: /p:dummy=foo
 
     pool:
       ${{ insert }}: ${{ parameters.pool }}
@@ -20,5 +22,5 @@ jobs:
       ${{ insert }}: ${{ parameters.strategy }}
 
     steps:
-      - script: $(_buildScript)
+      - script: $(_buildScript) $(_extraParams)
         displayName: Build
