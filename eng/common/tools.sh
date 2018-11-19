@@ -83,6 +83,8 @@ function InitializeDotNetCli {
   local dotnet_sdk_version=$_ReadGlobalVersion
   local dotnet_root=""
 
+  echo "Da version is $dotnet_sdk_version"
+
   # Use dotnet installation specified in DOTNET_INSTALL_DIR if it contains the required SDK version,
   # otherwise install the dotnet CLI and SDK to repo local .dotnet directory to avoid potential permission issues.
   if [[ -n "${DOTNET_INSTALL_DIR:-}" && -d "$DOTNET_INSTALL_DIR/sdk/$dotnet_sdk_version" ]]; then
