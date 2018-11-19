@@ -12,6 +12,10 @@ jobs:
         _buildScript: build.cmd -c -ci
       ${{ if ne(parameters.targetOS, 'Windows_NT') }}:
         _buildScript: ./build.sh -c --ci
+      ${{ if eq(parameters.targetOS, 'Windows_NT') }}:
+        __env: SET
+      ${{ if ne(parameters.targetOS, 'Windows_NT') }}:
+        __env: printenv
 
     pool:
       ${{ insert }}: ${{ parameters.pool }}
@@ -20,5 +24,7 @@ jobs:
       ${{ insert }}: ${{ parameters.strategy }}
 
     steps:
+      - script: $(__env)
+        displayName: Print Env
       - script: $(_buildScript)
         displayName: Build
