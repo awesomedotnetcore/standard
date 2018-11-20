@@ -11,7 +11,7 @@ jobs:
       targetOS: Windows_NT
 
   # Linux leg (only runs in CI)
-  - ${{ if ne(variables['System.TeamProject'], 'private') }}:
+  - ${{ if eq(variables['System.TeamProject'], 'public') }}:
     - template: /eng/pipelines/standard-ci.yml
       parameters:
         name: Linux
@@ -20,7 +20,7 @@ jobs:
         targetOS: Linux
 
   # OSX leg (only runs in CI)
-  - ${{ if ne(variables['System.TeamProject'], 'private') }}:
+  - ${{ if eq(variables['System.TeamProject'], 'public') }}:
     - template: /eng/pipelines/standard-ci.yml
       parameters:
         name: OSX

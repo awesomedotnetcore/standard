@@ -7,13 +7,15 @@ parameters:
 jobs:
   - job: ${{ parameters.name }}
     variables:
+      _signType: Real
+      _restoreSource: https://dotnetfeed.blob.core.windows.net/dotnet-core/index.json
       # OS Specific commands
       ${{ if eq(parameters.targetOS, 'Windows_NT') }}:
         _buildScript: build.cmd -c -ci
       ${{ if ne(parameters.targetOS, 'Windows_NT') }}:
         _buildScript: ./build.sh --ci
       ${{ if ne(variables['System.TeamProject'], 'public') }}:
-        _buildParameters: -Sign /p:OfficialBuildId=$(BUILD.BUILDNUMBER)) /p:SignType=$(_signType) /p:DotNetSignType=$(_signType) /p:MicroBuild_SigningEnabled=true /p:OverridePackageSource=$(_restoreSource)
+        _buildParameters: -Sign /p:OfficialBuildId=$(BUILD.BUILDNUMBER) /p:SignType=$(_signType) /p:DotNetSignType=$(_signType) /p:MicroBuild_SigningEnabled=true /p:OverridePackageSource=$(_restoreSource)
       ${{ if eq(variables['System.TeamProject'], 'public') }}:
         _buildParameters: ''
 
